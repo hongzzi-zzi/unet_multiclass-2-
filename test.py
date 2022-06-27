@@ -24,6 +24,7 @@ torch.autograd.set_detect_anomaly(True)
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 BATCH_SIZE = 4
 LEARNING_RATE = 1e-3
+
 DATA_DIR='/home/h/Desktop/data/random/test'
 CKPT_DIR = 'ckpt'
 RESULT_DIR = 'result'
@@ -82,24 +83,12 @@ with torch.no_grad(): # no backward pass
         label=data[1].to(DEVICE)
         output=net(input)
         
-        # loss function
-        loss = loss_fn(output, label)
-        loss_arr+=[loss.item()]
-        print("TEST: BATCH %04d / %04d | LOSS %.4f" %
-                      (batch, num_batch_test, np.mean(loss_arr)))
-        
         for i in range(input.shape[0]):
-            inputimg=tensor2PIL(fn_denorm(input[i], mean=0.5, std=0.5)).convert('RGBA')
+            # print(output[i].shape)
+            
             outputimg=tensor2PIL(fn_class(output[i][1])).convert('RGBA')
             bg= Image.open('transparence.png').resize((512, 512)) 
-            bg.paste(inputimg,outputimg)
-            
             name=data[2][i].split('/')[-1].replace('m_label', 'eval').replace('jpg','png')
 
-            new_image = Image.new('RGB',(1024,512), (250,250,250))
-            new_image.paste(inputimg,(0,0))
-            new_image.paste(bg,(512,0))
-            new_image.save(os.path.join(os.path.join(RESULT_DIR), name))
-print("AVERAGE TEST: BATCH %04d / %04d | LOSS %.4f" %(batch, num_batch_test, np.mean(loss_arr)))
-
+            outputimg.save(os.path.join(os.path.join(RESULT_DIR), name))
 # %%

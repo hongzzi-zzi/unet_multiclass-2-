@@ -61,7 +61,7 @@ dataset=CustomDataset(DATA_DIR, transform=transform,transform_m= transform_label
 training_loader, validation_loader=CustomDataLoader(dataset, val_split=0.1, batch_size=BATCH_SIZE)
 #%%  network generate
 model = UNet().to(DEVICE)
-loss_fn = torch.nn.BCEWithLogitsLoss().to(DEVICE)
+loss_fn = torch.nn.CrossEntropyLoss().to(DEVICE)
 optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE)
 #%%
 # variables

@@ -86,6 +86,9 @@ with torch.no_grad(): # no backward pass
         for i in range(input.shape[0]):
             # print(output[i].shape)
             
+            
+            ##argmax
+            
             outputimg=tensor2PIL(fn_class(output[i][1])).convert('RGBA')
             bg= Image.open('transparence.png').resize((512, 512)) 
             name=data[2][i].split('/')[-1].replace('m_label', 'eval').replace('jpg','png')

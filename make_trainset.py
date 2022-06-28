@@ -20,6 +20,9 @@ TEST_PATH="/home/h/Desktop/data/random/test"
 #%%
 tensor2PIL=transforms.ToPILImage()
 PIL2tensor=transforms.ToTensor()
+
+### 흑백 2개만들엉서(배경 이빨) 두개다 흑백으로 저장
+# (png)
 def mask2RGBmask(list, path):## 굳이 안써도 되지만,,, 2가지 이상의 채널일 경우도 있으니까 ㅇㅅㅇ
     for i in list:
         mask_ori=Image.open(i).resize((512, 512)).convert('RGBA').split()[-1]

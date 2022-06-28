@@ -29,7 +29,9 @@ class CustomDataset(Dataset):
             mask_path=os.path.join(self.mask_dir,sorted(os.listdir(self.mask_dir))[idx])
 
             image = Image.open(img_path).convert('RGB')
-            mask = Image.open(mask_path).convert('RGB')
+            ##MASK 2장가져오는걸로 ㅇㅇ
+            # CONVERT('l')
+            mask = Image.open(mask_path).convert('L')
         
             seed=random.randint(1, 10)
             # seed 고정해주기!!!!!!!!!!!!!!
@@ -40,6 +42,9 @@ class CustomDataset(Dataset):
                 torch.manual_seed(seed)
                 mask = self.transform_m(mask)
             ##label변환해주고 리턴하기
+            
+            ###mask2label을 2장가져와서 결과똑같이나오게
+            
             label=mask2label(mask)
             return image, label, img_path
         else:

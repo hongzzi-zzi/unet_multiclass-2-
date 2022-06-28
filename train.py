@@ -27,7 +27,7 @@ EPOCH=100
 BATCH_SIZE = 4
 LEARNING_RATE = 1e-3
 
-TRAIN_CONTINUE = 'off'
+TRAIN_CONTINUE = 'on'
 DATA_DIR='/home/h/Desktop/data/random/train'
 CKPT_DIR = 'ckpt'
 LOG_DIR = 'log'
